@@ -1,0 +1,6 @@
+Valeur,Code,Alias,Définition
+Indéterminée,00,,
+CLASSE A,01,,Classe de précision inférieure 40 cm
+CLASSE B,02,,"Classe de précision supérieure à 40 cm et inférieure à 1,50 m"
+CLASSE C,03,,"Classe de précision supérieure à 1,50 m"
+Autre,99,,

@@ -1,0 +1,46 @@
+version: 2
+
+
+seeds :
+  - name: eaupot_def_canalisations_en_service_example
+    description: "Parsing of a priori (made-up), covering examples of the definition / interface.
+      Examples have to be **as representative** of all possible data as possible because they are also the basis of the definition.
+      For instance, for a commune INSEE id field, they should also include a non-integer value such as 2A035 (Belvédère-Campomoro).
+      Methodology :
+      1. copy the first line(s) from the specification document (pour l'instant copié manuellement depuis le Gitbook, à terme pourrait générer ce dernier voire un métamodèle guidant l'outillage)
+      2. add line(s) to contain further values for until they are covering for all columns
+      3. NB. examples specific to each source type are provided in _source_example along their implementation (for which they are covering)"
+    config:
+      tags: ["example"] # echantillon, test
+      meta:
+        type: canalisations
+      column_types:
+        apcomsup_HauteurAppui: text
+  - name: eaupot_def_l_canalisations_materiau_v3
+    description: liste de valeurs possibles pour le champ
+    config:
+      tags: ["dictionary"]
+      column_types:
+        Code: text
+        Alias: text
+  - name: eaupot_def_l_canalisations_modeCirculation_v3
+    description: liste de valeurs possibles pour le champ
+    config:
+      tags: ["dictionary"]
+      column_types:
+        Code: text
+        Alias: text
+  - name: eaupot_def_l_canalisations_qualiteGeolocalisation_v3
+    description: liste de valeurs possibles pour le champ
+    config:
+      tags: ["dictionary"]
+      column_types:
+        Code: text
+        Alias: text
+  - name: eaupot_def_l_canalisations_source_v3
+    description: liste de valeurs possibles pour le champ
+    config:
+      tags: ["dictionary"]
+      column_types:
+        Type: text
+        Alias: text

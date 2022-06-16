@@ -1,0 +1,32 @@
+Valeur,Code,Alias,Définition
+Indéterminé,00,,Canalisation composée de tuyaux dont le matériau est inconnu
+Acier,01,Acier galvanisé,Canalisation composée de tuyaux d'acier
+Amiante-ciment,02,,Canalisation composée de tuyaux d'amiante-ciment
+Béton âme tôle,03,âme tôle,Canalisation composée de tuyaux de béton âme tôle
+Béton armé,04,,Canalisation composée de tuyaux de béton armé
+Béton fibré,05,,Canalisation composée de tuyaux de béton fibré
+Béton non armé,06,,Canalisation composée de tuyaux de béton non armé
+Cuivre,07,Cu,Canalisation composée de tuyaux de cuivre
+Fibre ciment,08,,Canalisation composée de tuyaux de fibre ciment
+Fibre de verre,09,Seperef,Canalisation composée de tuyaux de fibre de verre
+Fibrociment,10,,Canalisation composée de tuyaux de fibrociment
+Fonte ductile,11,,Canalisation composée de tuyaux de fonte ductile
+Fonte grise,12,Fte,Canalisation composée de tuyaux de fonte grise
+Grès,13,,Canalisation composée de tuyaux de grès
+Maçonnerie,14,,Canalisation maçonnée
+Meulière,15,,Canalisation construite en pierre meulière
+PEBD,16,,Canalisation composée de tuyaux de polyéthylène basse densité
+PEHD annelé,17,,Canalisation composée de tuyaux de polyéthylène haute densité annelés
+PEHD lisse,18,,Canalisation composée de tuyaux de polyéthylène haute densité lisses
+Plomb,19,,Canalisation composée de tuyaux de plomb
+PP annelé,20,,Canalisation composée de tuyaux de polypropylène annelés
+PP lisse,21,,Canalisation composée de tuyaux de polypropylène lisses
+PRV A,22,,Canalisation composée de polyester renforcé de fibre de verre (série A)
+PRV B,23,,Canalisation composée de polyester renforcé de fibre de verre (série B)
+PVC ancien,24,,Canalisation composée de tuyaux de polychlorure de vinyle posés avant 1980
+PVC BO,25,,Canalisation composée de tuyaux de polychlorure de vinyle bi-orienté
+PVC U annelé,26,,Canalisation composée de tuyaux de polychlorure de vinyle rigide annelés
+PVC U lisse,27,,Canalisation composée de tuyaux de polychlorure de vinyle rigide lisses
+Tôle galvanisée,28,,Canalisation construite en tôle galvanisée
+Fonte,29,,Canalisation en fonte non spécifiée
+Autre,99,,Canalisation composée de tuyaux dont le matériau ne figure pas dans la liste ci-dessus

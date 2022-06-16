@@ -1,0 +1,9 @@
+Champs,Type,Alias,Définition
+Indéterminée,00,,Valeur inconnue ou valeur de source inconnue
+Certaine,01,,Valeur constatée durant les travaux de pose
+Récolement,02,,Valeur définie à partir du plan de récolement
+Projet,03,,Valeur définie à partir du plan projet
+Mémoire,04,,Valeur définie à partir de la mémoire des « anciens »
+Déduite,05,,Valeur définie à partir d'un calcul ou d'une estimation
+Exploitant,06,,Valeur définie à partir de sources diverses de l'exploitant
+Autre,07,,Valeur définie à partir d'une source ne figurant pas parmi la liste ci-dessus
