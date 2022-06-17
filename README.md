@@ -4,6 +4,7 @@ Projet de traitement du cas d'usage FDR Bornes de recharge. En DBT.
 
 ## TODO :
 
+- enrich this README from apcom's
 - clean dbt_project.yml
 - canalisations_en_service :
   - clean from_csv (mapping), retest apcom, move it (& fdr_source_union, fal scripts/ ...) out of apcom project

@@ -75,7 +75,8 @@ rename and generic parsing is rather done
             fieldPrefix + 'qualiteGeolocalisation',
             fieldPrefix + 'sourceMateriau',
             fieldPrefix + 'sourceDiametreNomin',
-            fieldPrefix + 'sourceDatePose']) }},
+            fieldPrefix + 'sourceDatePose',
+            fieldPrefix + 'sourceDateAbandon']) }},
 
         "{{ fieldPrefix }}idCanalisation" as "{{ fieldPrefix }}src_id", -- 50337, 1645f993-f749-4e6f-acd8-46045ea408bf ; ID_2725 ; TODO Q uuid ? ; source own id
 
@@ -86,7 +87,8 @@ rename and generic parsing is rather done
         -- dont pris de métadonnées RAEPA :
         LPAD("{{ fieldPrefix }}sourceMateriau", 2, '0') as "{{ fieldPrefix }}sourceMateriau",
         LPAD("{{ fieldPrefix }}sourceDiametreNomin", 2, '0') as "{{ fieldPrefix }}sourceDiametreNomin",
-        LPAD("{{ fieldPrefix }}sourceDatePose", 2, '0') as "{{ fieldPrefix }}sourceDatePose"
+        LPAD("{{ fieldPrefix }}sourceDatePose", 2, '0') as "{{ fieldPrefix }}sourceDatePose",
+        LPAD("{{ fieldPrefix }}sourceDateAbandon", 2, '0') as "{{ fieldPrefix }}sourceDateAbandon"
 
     from import_parsed
 
