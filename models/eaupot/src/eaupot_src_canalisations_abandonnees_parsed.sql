@@ -15,5 +15,5 @@ Generically parsed
 {{ fdr_appuiscommuns.fdr_source_union_from_name(FDR_SOURCE_NOM,
     has_dictionnaire_champs_valeurs,
     this,
-    translated_macro=eaupot_canalisations_en_service_translated,
-    def_model=ref('eaupot_def_canalisations_en_service_definition')) }}
+    translated_macro=eaupot_canalisations_translated,
+    def_model=ref('eaupot_def_canalisations_definition')) }}

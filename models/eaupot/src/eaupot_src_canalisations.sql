@@ -8,4 +8,4 @@ shortcut (TODO or DBT alias ?)
   )
 }}
 
-select * from {{ ref('eaupot_src_canalisations_en_service_translated') }}
+select * from {{ ref('eaupot_src_canalisations_translated') }}

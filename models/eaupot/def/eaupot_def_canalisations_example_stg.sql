@@ -8,7 +8,7 @@ Methodology :
 3. NB. examples specific to each source type are provided in _source_example along their implementation (for which they are covering)
 
 TODO can't be replaced by from_csv because is the actual definition, BUT could be by guided by metamodel !
-{{ eaupot_def_canalisations_en_service_from_csv(ref(model.name[:-4])) }}
+{{ eaupot_def_canalisations_from_csv(ref(model.name[:-4])) }}
 
 #}
 
@@ -18,4 +18,4 @@ TODO can't be replaced by from_csv because is the actual definition, BUT could b
   )
 }}
 
-{{ eaupot_canalisations_en_service_from_csv() }}
+{{ eaupot_canalisations_from_csv() }}

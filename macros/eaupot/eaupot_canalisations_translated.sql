@@ -2,6 +2,7 @@
 Normalisation vers le modèle de données
 à appliquer après le spécifique _from_csv, ou après le générique from_csv guidé par le modèle produit par _from_csv,
 qui, eux, gèrent renommage et parsing générique
+en service ET abandonnées (données et champs)
 
 TODO dire lenient, errors
 
@@ -32,7 +33,7 @@ TODO :
 - OUI OU à chaque fois pour plus de concision et lisibilité select * (les champs en trop sont alors enlevés à la fin par la __definition) ?
 #}
 
-{% macro eaupot_canalisations_en_service_translated(parsed_source_relation, src_priority=None) %}
+{% macro eaupot_canalisations_translated(parsed_source_relation, src_priority=None) %}
 
 {% set modelVersion ='_v3' %}
 

@@ -14,7 +14,7 @@ Materialized as view because of these uses.
   )
 }}
 
-{% set source_model = ref('eaupot_def_canalisations_en_service_example_stg') %}
+{% set source_model = ref('eaupot_def_canalisations_example_stg') %}
 
 select
     {{ dbt_utils.star(source_model) }}

@@ -2,7 +2,7 @@
 
 #}
 
-{% macro eaupot_canalisations_en_service_labelled(translated_source_relation) %}
+{% macro eaupot_canalisations_labelled(translated_source_relation) %}
 
 {% set modelVersion ='_v3' %}
 
@@ -27,7 +27,8 @@ with translated as (
         geol."Valeur" as "{{ fieldPrefix }}qualiteGeolocalisation_label",
         source_mat."Champs" as "{{ fieldPrefix }}sourceMateriau_label",
         source_diam."Champs" as "{{ fieldPrefix }}sourceDiametreNomin_label",
-        source_date."Champs" as "{{ fieldPrefix }}sourceDatePose_label"
+        source_date_pose."Champs" as "{{ fieldPrefix }}sourceDatePose_label",
+        source_date_abandon."Champs" as "{{ fieldPrefix }}sourceDateAbandon_label"
 
     from translated
 
@@ -41,8 +42,10 @@ with translated as (
             on translated."{{ fieldPrefix }}sourceMateriau" = source_mat."Type"
         left join {{ ref('eaupot_def_l_canalisations_source' + modelVersion) }} source_diam -- LEFT join sinon seulement les lignes qui ont une valeur !! TODO indicateur count pour le vérifier
             on translated."{{ fieldPrefix }}sourceDiametreNomin" = source_diam."Type"
-        left join {{ ref('eaupot_def_l_canalisations_source' + modelVersion) }} source_date -- LEFT join sinon seulement les lignes qui ont une valeur !! TODO indicateur count pour le vérifier
-            on translated."{{ fieldPrefix }}sourceDatePose" = source_date."Type"
+        left join {{ ref('eaupot_def_l_canalisations_source' + modelVersion) }} source_date_pose -- LEFT join sinon seulement les lignes qui ont une valeur !! TODO indicateur count pour le vérifier
+            on translated."{{ fieldPrefix }}sourceDatePose" = source_date_pose."Type"
+        left join {{ ref('eaupot_def_l_canalisations_source' + modelVersion) }} source_date_abandon -- LEFT join sinon seulement les lignes qui ont une valeur !! TODO indicateur count pour le vérifier
+            on translated."{{ fieldPrefix }}sourceDateAbandon" = source_date_abandon."Type"
 
 )
 

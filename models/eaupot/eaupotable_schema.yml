@@ -2,7 +2,7 @@ version: 2
 
 
 seeds :
-  - name: eaupot_def_canalisations_en_service_example
+  - name: eaupot_def_canalisations_example
     description: "Parsing of a priori (made-up), covering examples of the definition / interface.
       Examples have to be **as representative** of all possible data as possible because they are also the basis of the definition.
       For instance, for a commune INSEE id field, they should also include a non-integer value such as 2A035 (Belvédère-Campomoro).

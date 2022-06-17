@@ -1,5 +1,6 @@
 {#
 Fully translated, indexed
+en service ET abandonnées (données et champs)
 #}
 
 
@@ -16,9 +17,9 @@ Fully translated, indexed
 }}
 
 with canalisations_en_service as (
-  {{ eaupot_canalisations_en_service_translated(ref('eaupot_src_canalisations_en_service_parsed')) }}
+  {{ eaupot_canalisations_translated(ref('eaupot_src_canalisations_en_service_parsed')) }}
 ), canalisations_abandonnees as (
-  {{ eaupot_canalisations_en_service_translated(ref('eaupot_src_canalisations_abandonnees_parsed')) }}
+  {{ eaupot_canalisations_translated(ref('eaupot_src_canalisations_abandonnees_parsed')) }}
 )
 select * from canalisations_en_service
 UNION
