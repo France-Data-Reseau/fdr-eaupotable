@@ -64,42 +64,22 @@ rename and generic parsing is rather done
 
     from import_parsed
 
-), src_renamed as (
+), with_generic_fields as (
+
+    {{ add_generic_fields('specific_parsed', fieldPrefix, ns, src_priority) }}
+
+), specific_renamed as (
 
     select
         *,
 
-        --'{{ parsed_source_relation }}' as "{{ fieldPrefix }}src_name", -- source name, for src_id (with data_owner_id) and _priority (else won't have it anymore once unified with other sources)
-        "FDR_SOURCE_NOM" as "{{ fieldPrefix }}src_kind", -- source kind / type, for src_id (with data_owner_id) and _priority (else won't have it anymore once unified with other sources)
-        "FDR_SOURCE_NOM" || '_' || data_owner_id as "{{ fieldPrefix }}src_name", -- source name, for src_id (else won't have it anymore once unified with other sources)
-        import_table as "{{ fieldPrefix }}src_table" -- (bonus)
-        --id as "{{ fieldPrefix }}src_index", -- index in source
-
-    from specific_parsed
-
-), src_computed as (
-
-    select
-        *,
-
-        {% if src_priority %}'{{ src_priority }}_' || {% endif %}"{{ fieldPrefix }}src_name" as "{{ fieldPrefix }}src_priority",  -- 0 is highest, then 10, 100, 1000... src_name added to differenciate
-        "{{ fieldPrefix }}src_name" || '_' || "{{ fieldPrefix }}src_id" as "{{ fieldPrefix }}id" -- overall unique id
-
-    from src_renamed
-
-), computed as (
-
-    select
-        *,
-
-        "{{ fieldPrefix }}id" as "{{ fieldPrefix }}idReparation",
-        uuid_generate_v5(uuid_generate_v5(uuid_ns_dns(), '{{ ns }}}}'), "{{ fieldPrefix }}id") as "{{ fieldPrefix }}uuid" -- in case of uuid
+        "{{ fieldPrefix }}id" as "{{ fieldPrefix }}idReparation"
         --ST_GeomFROMText('POINT(' || cast("X" as text) || ' ' || cast("Y" as text) || ')', 4326) as geometry, -- OU prefix ? forme ?? ou /et "Geom" ? TODO LATER s'en servir pour réconcilier si < 5m
 
-    from src_computed
+    from with_generic_fields
 
 )
 
-select * from computed
+select * from specific_renamed
 
 {% endmacro %}
