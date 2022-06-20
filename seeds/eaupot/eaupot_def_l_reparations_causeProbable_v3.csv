@@ -1,0 +1,12 @@
+Valeur,Code,Alias,Définition
+Indéterminé,00,,Cause probable non identifié précisément
+Corrosion interne,01,,Défaillance causée par une corrosion interne de la canalisation
+Corrosion externe,02,,Défaillance causée par une corrosion externe de la canalisation
+Mouvement de terrain,03,"Effondrement,Défaillance causée par un mouvement de terrain"
+Condition de pose,04,,Défaillance causée par un défaut lors de la pose de la canalisation
+Racine,05,,Défaillance causée par les racines d'arbres
+Surpression,06,,Défaillance causée par un coup de bélier ou par tout autre phénomène de type écoulement transitoire
+Coup de bélier,07,,Défaillance causée par un coup de bélier ou par tout autre phénomène de type écoulement transitoire
+Tiers,08,,"Défaillance causée par un tiers (travaux par un autre service : gaz, électricité, télécom, assainissement, pluvial...)""
+Gel,09,,Défaillance causée par des températures ayant entraînées le gel de l'eau dans la canalisation ou le gel du sol
+Autre,99,,Cause probable de défaillance ne figurant pas dans la liste ci-dessus

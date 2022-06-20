@@ -1,0 +1,7 @@
+Valeur,Code,Alias,Définition
+Indéterminé,00,,Emplacement de la défaillance indéterminée
+Branchement,01,,"Défaillance ayant lieu sur le branchement (dans sa partie tuyauterie, d'emboitement ou de joint)"
+Canalisation,02,,"Défaillance ayant lieu sur la canalisation (dans sa partie tuyauterie, d'emboitement ou de joint)"
+Fontainerie,03,,"Défaillance ayant lieu sur un organe de fontainerie (vidange, purge, ventouse, bouche à clé, stabilisateur, fontaine)"
+Robinetterie,04,,"Défaillance ayant lieu sur un organe de robinetterie (vanne, robinet vanne)"
+Autre,99,,Emplacement de défaillance ne figurant pas dans la liste ci-dessus

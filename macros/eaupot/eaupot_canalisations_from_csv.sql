@@ -43,17 +43,17 @@ select
         exploitant::text as "{{ fieldPrefix }}exploitant", -- GRAND ANNECY, NULL ; required
         {{ fdr_appuiscommuns.to_boolean_or_null('enService', source_relation, source_alias) }} as "{{ fieldPrefix }}enService", -- bool or 1 int4 ; required
         {{ fdr_appuiscommuns.to_boolean_or_null('branchement', source_relation, source_alias) }} as "{{ fieldPrefix }}branchement", -- bool or 1 int4 ; required
-        "modeCirculation" as "{{ fieldPrefix }}modeCirculation", -- Gravitaire, required
+        "modeCirculation"::text as "{{ fieldPrefix }}modeCirculation", -- Gravitaire, required
         {{ fdr_appuiscommuns.to_date_or_null('anPoseInf', source_relation, ['YYYY-MM-DD'], source_alias) }}::date as "{{ fieldPrefix }}anPoseInf", -- 1925-01-01 ; AAAA-mm-jj
         {{ fdr_appuiscommuns.to_date_or_null('anPoseSup', source_relation, ['YYYY-MM-DD'], source_alias) }}::date as "{{ fieldPrefix }}anPoseSup", -- 1936-01-01 ; AAAA-mm-jj
         {{ fdr_appuiscommuns.to_numeric_or_null('longueur', source_relation, source_alias) }}::numeric as "{{ fieldPrefix }}longueur", -- 31.47597935 ; 15.29, float
         "metaRAEPA" as "{{ fieldPrefix }}metaRAEPA", -- TODO pas fournies, format ? (jons, ou plutôt en champs ?)
-        "qualiteGeolocalisation" as "{{ fieldPrefix }}qualiteGeolocalisation", -- Classe A, required
-        "sourceMateriau" as "{{ fieldPrefix }}sourceMateriau", -- Mémoire, required
-        "sourceDiametreNomin" as "{{ fieldPrefix }}sourceDiametreNomin", -- Récolement, required
-        "sourceDatePose" as "{{ fieldPrefix }}sourceDatePose", -- Récolement, required
+        "qualiteGeolocalisation"::text as "{{ fieldPrefix }}qualiteGeolocalisation", -- Classe A, required
+        "sourceMateriau"::text as "{{ fieldPrefix }}sourceMateriau", -- Mémoire, required
+        "sourceDiametreNomin"::text as "{{ fieldPrefix }}sourceDiametreNomin", -- Récolement, required
+        "sourceDatePose"::text as "{{ fieldPrefix }}sourceDatePose", -- Récolement, required
         {{ fdr_appuiscommuns.to_date_or_null('dateAbandon', source_relation, ['YYYY-MM-DD'], source_alias) }}::date as "{{ fieldPrefix }}dateAbandon", -- 2021-05-30 ; AAAA-mm-jj, required SI ABANDONNEE
-        "sourceDateAbandon" as "{{ fieldPrefix }}sourceDateAbandon" -- Récolement, required
+        "sourceDateAbandon"::text as "{{ fieldPrefix }}sourceDateAbandon" -- Récolement, required
 
     from {{ source_model }}
 

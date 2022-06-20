@@ -1,0 +1,12 @@
+Valeur,Code,Alias,Définition
+Indéterminé,00,,Défaillance de type inconnu
+Casse longitudinale,01,,Canalisation fendue sur sa longueur
+Casse nette,02,,Canalisation cassée
+Déboitement,03,,Déboîtement de tuyau(x) de la canalisation
+Fissure,04,,Canalisation fissurée
+Joint,05,,Joint défectueux
+Percement,06,Perforation," Trous,Canalisation percée"
+Casse circonférentielle,07,,Canalisation cassée sur sa circonférence
+Fissure longitudinale,08,,Canalisation fissurée sur sa longueur
+Fissure circonférentielle,09,,Canalisation fissurée sur sa circonférence
+Autre,99,,Type de défaillance ne figurant pas dans la liste ci-dessus

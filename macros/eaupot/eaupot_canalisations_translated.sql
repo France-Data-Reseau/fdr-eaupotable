@@ -4,31 +4,31 @@ Normalisation vers le modèle de données
 qui, eux, gèrent renommage et parsing générique
 en service ET abandonnées (données et champs)
 
-TODO dire lenient, errors
-
 TODO :
 - accepter en parsing lenient / souple ou pas de la part des collectivités ?? (ou les aide à corriger avec quelle info)
 - uuid ?? OUI pbs : idCanalisation
-   - (idCanalisation : pas unique donc rendu unique en rajoutant src_id ; ou par uuid ? (certains le sont déjà !))
+   - (idCanalisation : pas unique donc rendu unique en rajoutant src_id ; ou par uuid (reproductibles) ? (certains le sont déjà !))
    - est text dans le modèle du jdb,
    - et pas unique entre les sources => préfixer par par _src_name le _src_id
-- !!! EN DEHORS de ceux de standards réutilisés (tel ici le Géostandard RAEPA), les codes devraient être lisibles / sémantiquement significatif ! (de plus cela éviterait certains typés int4 où manque un zéro en tête)
-  - ex. âme tôle => ame_tole
-  - Alias : sert à unifier 2 valeurs en une
-- 5 ENUM : mauvais, à interdire (ou interpréter comme codes) !! heureusement dans les données ce n'en est pas, mais hélas soit des int sans sémantique (dans certains cas typés en varchar, notamment les source* dans ...19)
-  - = liste fermée et non ENUM SQL
-- code : liste ouverte NON...
+- les listes de valeurs contraintes :
+  - sont en format CSV séparé par des ";" et non des virgules
+  - !!! EN DEHORS de ceux de standards réutilisés (tel ici le Géostandard RAEPA), les codes devraient être lisibles / sémantiquement significatif ! (de plus cela éviterait certains typés int4 où manque un zéro en tête)
+    - ex. âme tôle => ame_tole
+  - Alias : sert à unifier 2 valeurs en une => plutôt à mettre dans le dictionnaire de données, ou / et comme guide / doc de parsing
+  - 5 ENUM : mauvais, à interdire (ou interpréter comme codes) !! heureusement dans les données ce n'en est pas, mais hélas soit des int sans sémantique (dans certains cas typés en varchar, notamment les source* dans ...19)
+    - = liste fermée et non ENUM SQL
+  - code : liste ouverte NON...
   - (NB. dans LibreOffice, attention, les zéros en tête du Code disparaissent)
-- + colonnes valeurs source en text, pour aider debug erreurs
+- TODO pour aider debug erreurs :
+  - -colonnes valeurs source en text,
+  - ou quand le champ source et le champ parsé ne sont pas NULL en même temps,
+  - ou colonnes supplémentaires champ_err contenant l'exception de parsing...
 - (patch ogr2ogr to be able to quote columns !)
-- RAEPA : format pas clair, table externe ou json ou champs ? :
-  - normalement une table externe (mais requiert FDR_SOURCE_NOM !)
-  - les champs source* sont déjà des métadonnées RAEPA,
-  - et le plus simple est pareil de rajouter des champs raepa_*
 - le ...19 (Grand Annecy) a :
+  - des ids non uuid (donc non uniques)
   - des "geometrie" varchar Line, mais le bon type dans "geom" ?! => détecter le type ??
   - des dates 2999-12-31 01:00:00.000 +0100, pour NULL ? mais anposeinf est fourni NULL...
-  - les source* en int4 donc (et non text), et donc dans certains manque un zéro en tête
+  - les codes / ENUs en int4 donc (et non text), et donc dans certains manque un zéro en tête
 
 - OUI OU à chaque fois pour plus de concision et lisibilité select * (les champs en trop sont alors enlevés à la fin par la __definition) ?
 #}
@@ -112,7 +112,7 @@ rename and generic parsing is rather done
         *,
 
         {% if src_priority %}'{{ src_priority }}_' || {% endif %}"{{ fieldPrefix }}src_name" as "{{ fieldPrefix }}src_priority",  -- 0 is highest, then 10, 100, 1000... src_name added to differenciate
-        "{{ fieldPrefix }}src_name" || '_' || "{{ fieldPrefix }}src_id" as "{{ fieldPrefix }}idCanalisation"
+        "{{ fieldPrefix }}src_name" || '_' || "{{ fieldPrefix }}src_id" as "{{ fieldPrefix }}id" -- overall unique id
 
     from src_renamed
 
@@ -121,7 +121,8 @@ rename and generic parsing is rather done
     select
         *,
 
-        uuid_generate_v5(uuid_generate_v5(uuid_ns_dns(), '{{ ns }}}}'), "{{ fieldPrefix }}src_id") as "{{ fieldPrefix }}uuid" -- in case of uuid
+        "{{ fieldPrefix }}id" as "{{ fieldPrefix }}idCanalisation",
+        uuid_generate_v5(uuid_generate_v5(uuid_ns_dns(), '{{ ns }}}}'), "{{ fieldPrefix }}id") as "{{ fieldPrefix }}uuid" -- in case of uuid
         --ST_GeomFROMText('POINT(' || cast("X" as text) || ' ' || cast("Y" as text) || ')', 4326) as geometry, -- OU prefix ? forme ?? ou /et "Geom" ? TODO LATER s'en servir pour réconcilier si < 5m
 
     from src_computed
