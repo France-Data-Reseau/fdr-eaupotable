@@ -1,5 +1,28 @@
 version: 2
 
+models :
+  - name: eaupot_std_canalisations
+    description: l'union des canalisations des toutes les sources
+    config:
+      tags: [ 'translation' ] # 'pii' TODO generate from source__type.sql (and rename it)
+      meta:
+        type: canalisations
+        FDR_ROLE: echange
+        fal:
+          scripts:
+            #- dbt_packages/fdr_appuiscommuns/scripts/publish.py
+            - scripts/publish.py
+  - name: eaupot_std_reparations
+    description: l'union des reparations des toutes les sources
+    config:
+      tags: [ 'translation' ] # 'pii' TODO generate from source__type.sql (and rename it)
+      meta:
+        type: reparations
+        FDR_ROLE: echange
+        fal:
+          scripts:
+            #- dbt_packages/fdr_appuiscommuns/scripts/publish.py
+            - scripts/publish.py
 
 seeds :
   - name: eaupot_def_canalisations_example

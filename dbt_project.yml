@@ -8,7 +8,7 @@ config-version: 2
 vars:
   #limit: 1000
   FDR_CAS_USAGE: eaupotable
-  ns: 'canalisation.eaupotable.francedatareseau.fr' # access with var('ns')
+  fdr_namespace: 'eaupotable.francedatareseau.fr' # access with var(), NOT namespace else jinja's
   enableOverTime: false # sinon problèmes, voir dans les exploitation/*_ot.sql
   enableProfiling: false
   test_extract_suffixes:
@@ -22,6 +22,12 @@ vars:
   # TODO or / and setup/conf() macros
   # TODO move to global meta project :
   schemas: ['appuiscommuns', 'sdirve', 'eaupotable', 'eclairage_public']
+  #base_schema: eaupotable
+  use_case_prefix: eaupot
+  owner_org: usage-eau-potable
+  create_views_per_data_owner_relations: ['eaupot_std_canalisations_labelled', 'eaupot_std_reparations_labelled']
+  # dbt_packages/fdr-... fails if soft link OR relative to parent ../ ; OR dans .yml # https://docs.fal.ai/Docs/fal-cli/local-imports
+  #fal-scripts-path: ../fdr_appuiscommuns/scripts
 
 model-paths: ["models"]
 analysis-paths: ["analyses"]
@@ -41,10 +47,15 @@ on-run-start:
     #- '{{create_role_schema("appuiscommuns_test")}}'
     ##- '{% if not target.name %}{{create_views()}}{% endif %}'
     - '{{ fdr_appuiscommuns.create_udfs() }}'
-    
+
+on-run-end:
+  - '{% if not target.name %}{{ fdr_appuiscommuns.create_views_per_data_owner() }}{% endif %}'
+
 seeds:
   # TODO temp, rm :
   fdr_appuiscommuns:
+    +enabled: false
+  fdr_francedatareseau:
     +enabled: false
   fdr_eaupotable:
     #+quote_columns: true now true by default in 1.0
@@ -62,6 +73,8 @@ models:
   # TODO temp, rm :
   fdr_appuiscommuns:
     +enabled: false
+  fdr_francedatareseau:
+    +enabled: false
   #fdr_osmgeodatamine_powersupports:
   fdr_eaupotable:
     # TODO move to _unified /_joined / _computed/enriched ?
@@ -75,3 +88,9 @@ models:
         #materialized: view NO rather table for performance
     #meta:
       #materialized: table not needed (?)
+
+tests:
+  fdr_appuiscommuns:
+    +enabled: false
+  fdr_francedatareseau:
+    +enabled: false
