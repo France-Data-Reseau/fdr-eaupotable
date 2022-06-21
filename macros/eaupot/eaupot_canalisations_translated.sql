@@ -41,10 +41,10 @@ TODO :
 {% set typeUrlPrefix = containerUrl + '/dc/type/' %}
 {% set type = 'eaupotable_canalisation_raw/nativesrc_extract' %} -- spécifique à la source ; _2021 ? from this file ? prefix:typeName ?
 {% set type = 'eaupotable_canalisation' %} -- _2021 ? from this file ? prefix:typeName ?
-{% set ns = 'canalisation.eaupotable.francedatareseau.fr' %} -- ?
+{% set fdr_namespace = 'canalisation.' + var('fdr_namespace') %} -- ?
 {% set typeName = 'Canalisation' %}
 {% set sourcePrefix = 'osmposup' %} -- ?
-{% set prefix = 'eaupotcan' %} -- ?
+{% set prefix = var('use_case_prefix') + 'can' %} -- ?
 {% set sourceFieldPrefix = sourcePrefix + ':' %}
 {% set sourceFieldPrefix = sourcePrefix + '_' %}
 {% set fieldPrefix = prefix + ':' %}
@@ -95,7 +95,7 @@ rename and generic parsing is rather done
 
 ), with_generic_fields as (
 
-    {{ add_generic_fields('specific_parsed', fieldPrefix, ns, src_priority) }}
+    {{ fdr_appuiscommuns.add_generic_fields('specific_parsed', fieldPrefix, fdr_namespace, src_priority) }}
 
 ), specific_renamed as (
 
