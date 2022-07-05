@@ -20,7 +20,7 @@ TODO can't be replaced by generic from_csv because is the actual definition, BUT
 
 {% macro eaupot_reparations_from_csv(source_model=ref(model.name | replace('_stg', ''))) %}
 
-{% set fieldPrefix = 'eaupotrep_' %}
+{% set fieldPrefix = var('use_case_prefix') + 'rep_' %}
 {% set source_relation = source_model %}{# TODO rename #}
 {% set source_alias = None %}{# 'source' TODO rename #}
 
@@ -34,7 +34,7 @@ select
         ---- TODO '{{ source_relation }}' as "{{ fieldPrefix }}src_name", -- source name (else won't have it anymore once unified with other sources)
         --id as "{{ fieldPrefix }}src_index", -- index in source
         "idReparation"::text as "{{ fieldPrefix }}idReparation", --  ; 20181219135200_dsire3m, c1528e18-e993-42ee-b812-990f7f84018c ; ID_D981 ; TODO Q uuid ? ; source own id ; required
-        ST_GeomFROMText("geometrie", 4326) as "geometrie", -- geometrie as "geometrie", -- Point, required
+        ST_GeomFROMText("geometrie", 2154) as "geometrie", -- geometrie as "geometrie", -- Point, required
         "supportIncident"::text as "{{ fieldPrefix }}supportIncident", --  ; 6823, 6e8e4623-0788-49d5-bad8-5d3071103922 ; ID_C617 ; source own id of canalisations
         {{ fdr_appuiscommuns.to_date_or_null('dateIntervention', source_relation, ['YYYY-MM-DD'], source_alias) }}::date as "{{ fieldPrefix }}dateIntervention", -- 2014-03-19 ; AAAA-mm-jj
         "qualiteGeolocalisation"::text as "{{ fieldPrefix }}qualiteGeolocalisation", -- 02 Classe A, required

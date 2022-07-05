@@ -20,7 +20,7 @@ TODO can't be replaced by generic from_csv because is the actual definition, BUT
 
 {% macro eaupot_canalisations_from_csv(source_model=ref(model.name | replace('_stg', ''))) %}
 
-{% set fieldPrefix = 'eaupotcan_' %}
+{% set fieldPrefix = var('use_case_prefix') + 'can_' %}
 {% set source_relation = source_model %}{# TODO rename #}
 {% set source_alias = None %}{# 'source' TODO rename #}
 
@@ -35,7 +35,7 @@ select
         --id as "{{ fieldPrefix }}src_index", -- index in source
         ---- TODO "idCanalisation"::text as "{{ fieldPrefix }}src_id", -- 50337, 1645f993-f749-4e6f-acd8-46045ea408bf ; ID_2725 ; TODO Q uuid ? ; source own id
         "idCanalisation"::text as "{{ fieldPrefix }}idCanalisation", -- 50337, 1645f993-f749-4e6f-acd8-46045ea408bf ; ID_2725 ; TODO Q uuid ? ; source own id
-        ST_GeomFROMText("geometrie", 4326) as "geometrie", -- geometrie as "geometrie", -- Line, required
+        ST_GeomFROMText("geometrie", 2154) as "geometrie", -- geometrie as "geometrie", -- Line, required
         materiau::text as "{{ fieldPrefix }}materiau", -- 18, 11, FG ; Fonte grise (LABEL !), required ; TODO PAS liste ouverte comme le suggère "code" plutôt que "ENUM"
         {{ fdr_appuiscommuns.to_numeric_or_null('diametreNominal', source_relation, source_alias) }}::numeric as "{{ fieldPrefix }}diametreNominal", -- TODO int (selon que pour test ou translate ?) ; 200, int
         {{ fdr_appuiscommuns.to_date_or_null('datePose', source_relation, ['YYYY-MM-DD'], source_alias) }}::date as "{{ fieldPrefix }}datePose", -- 2021-05-25 ; AAAA-mm-jj
@@ -50,7 +50,7 @@ select
         "metaRAEPA" as "{{ fieldPrefix }}metaRAEPA", -- TODO pas fournies, format ? (jons, ou plutôt en champs ?)
         "qualiteGeolocalisation"::text as "{{ fieldPrefix }}qualiteGeolocalisation", -- Classe A, required
         "sourceMateriau"::text as "{{ fieldPrefix }}sourceMateriau", -- Mémoire, required
-        "sourceDiametreNomin"::text as "{{ fieldPrefix }}sourceDiametreNomin", -- Récolement, required
+        "sourceDiametreNominal"::text as "{{ fieldPrefix }}sourceDiametreNominal", -- Récolement, required
         "sourceDatePose"::text as "{{ fieldPrefix }}sourceDatePose", -- Récolement, required
         {{ fdr_appuiscommuns.to_date_or_null('dateAbandon', source_relation, ['YYYY-MM-DD'], source_alias) }}::date as "{{ fieldPrefix }}dateAbandon", -- 2021-05-30 ; AAAA-mm-jj, required SI ABANDONNEE
         "sourceDateAbandon"::text as "{{ fieldPrefix }}sourceDateAbandon" -- Récolement, required

@@ -75,7 +75,7 @@ rename and generic parsing is rather done
             fieldPrefix + 'modeCirculation',
             fieldPrefix + 'qualiteGeolocalisation',
             fieldPrefix + 'sourceMateriau',
-            fieldPrefix + 'sourceDiametreNomin',
+            fieldPrefix + 'sourceDiametreNominal',
             fieldPrefix + 'sourceDatePose',
             fieldPrefix + 'sourceDateAbandon']) }},
 
@@ -87,7 +87,7 @@ rename and generic parsing is rather done
         LPAD("{{ fieldPrefix }}qualiteGeolocalisation", 2, '0') as "{{ fieldPrefix }}qualiteGeolocalisation",
         -- dont pris de métadonnées RAEPA :
         LPAD("{{ fieldPrefix }}sourceMateriau", 2, '0') as "{{ fieldPrefix }}sourceMateriau",
-        LPAD("{{ fieldPrefix }}sourceDiametreNomin", 2, '0') as "{{ fieldPrefix }}sourceDiametreNomin",
+        LPAD("{{ fieldPrefix }}sourceDiametreNominal", 2, '0') as "{{ fieldPrefix }}sourceDiametreNominal",
         LPAD("{{ fieldPrefix }}sourceDatePose", 2, '0') as "{{ fieldPrefix }}sourceDatePose",
         LPAD("{{ fieldPrefix }}sourceDateAbandon", 2, '0') as "{{ fieldPrefix }}sourceDateAbandon"
 

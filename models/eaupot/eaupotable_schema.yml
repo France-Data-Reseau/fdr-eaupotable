@@ -12,6 +12,105 @@ models :
           scripts:
             #- dbt_packages/fdr_appuiscommuns/scripts/publish.py
             - scripts/publish.py
+    columns:
+      - name: eaupotcan_idCanalisation
+        quote: true
+        description: description
+        tests:
+          - unique
+          - not_null
+      - name: geometrie
+        description: description
+        tests:
+          - not_null
+      - name: eaupotcan_materiau
+        description: description
+        tests:
+          - not_null
+          - relationships:
+              to: ref("eaupot_def_l_canalisations_materiau_v3")
+              field: '"Code"'
+      - name: eaupotcan_diametreNominal
+        quote: true
+        description: description
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0 # 1 ?
+              max_value: 3000
+              #where: "apcomsup__HauteurAppui > 0"
+      - name: eaupotcan_maitreOuvrage
+        quote: true
+        description: description
+        tests:
+          - not_null
+      - name: eaupotcan_exploitant
+        description: description
+        tests:
+          - not_null
+      - name: eaupotcan_longueur
+        quote: true
+        description: description
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0 # 1 ?
+              max_value: 10000
+              #where: "apcomsup__HauteurAppui > 0"
+      - name: eaupotcan_qualiteGeolocalisation
+        quote: true
+        tests:
+          - not_null
+          - relationships:
+              to: ref("eaupot_def_l_canalisations_qualiteGeolocalisation_v3")
+              field: '"Code"'
+      - name: eaupotcan_sourceMateriau
+        quote: true
+        tests:
+          - not_null
+          - relationships:
+              to: ref("eaupot_def_l_canalisations_source_v3")
+              field: '"Type"'
+      - name: eaupotcan_sourceDiametreNominal
+        quote: true
+        tests:
+          - not_null
+          - relationships:
+              to: ref("eaupot_def_l_canalisations_source_v3")
+              field: '"Type"'
+      - name: eaupotcan_sourceDatePose
+        quote: true
+        tests:
+          - not_null
+          - relationships:
+              to: ref("eaupot_def_l_canalisations_source_v3")
+              field: '"Type"'
+      # dateAbandon null si FDR_SOURCE_NOM=canalisations_en_service
+      - name: eaupotcan_dateAbandon
+        quote: true
+        tests:
+          - not_null:
+              where: "\"FDR_SOURCE_NOM\" = 'canalisations_abandonnees'"
+      - name: eaupotcan_sourceDateAbandon
+        quote: true
+        tests:
+          - not_null:
+              where: "\"FDR_SOURCE_NOM\" = 'canalisations_abandonnees'"
+          - relationships:
+              to: ref("eaupot_def_l_canalisations_source_v3")
+              field: '"Type"'
+
+  - name: eaupot_def_canalisations_example_stg
+    description: description
+    config:
+      tags: [ 'example' ] # 'pii' TODO generate from source__type.sql (and rename it)
+      meta:
+        type: canalisations
+        FDR_ROLE: source
+        FDR_TARGET: test
+        fal:
+          scripts:
+            #- dbt_packages/fdr_appuiscommuns/scripts/publish.py
+            - scripts/publish.py
+
   - name: eaupot_std_reparations
     description: l'union des reparations des toutes les sources
     config:

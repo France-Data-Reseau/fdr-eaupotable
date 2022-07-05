@@ -6,7 +6,7 @@
 
 {% set modelVersion ='_v3' %}
 
-{% set fieldPrefix = 'eaupotrep_' %}
+{% set fieldPrefix = var('use_case_prefix') + 'rep_' %}
 
 with translated as (
 
