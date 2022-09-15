@@ -16,10 +16,10 @@ voir eaupot_canalisations_translated
 {% set containerUrl = 'http://' + 'datalake.francedatareseau.fr' %}
 {% set typeUrlPrefix = containerUrl + '/dc/type/' %}
 {% set type = 'eaupotable_reparation_raw/nativesrc_extract' %} -- spécifique à la source ; _2021 ? from this file ? prefix:typeName ?
-{% set type = 'eaupotable_repasation' %} -- _2021 ? from this file ? prefix:typeName ?
+{% set type = 'eaupotable_reparation' %} -- _2021 ? from this file ? prefix:typeName ?
 {% set fdr_namespace = 'reparation.' + var('fdr_namespace') %} -- ?
 {% set typeName = 'Reparation' %}
-{% set sourcePrefix = 'osmposup' %} -- ?
+{% set sourcePrefix = 'eaupot' %} -- ?
 {% set prefix = var('use_case_prefix') + 'rep' %} -- ?
 {% set sourceFieldPrefix = sourcePrefix + ':' %}
 {% set sourceFieldPrefix = sourcePrefix + '_' %}
@@ -66,7 +66,7 @@ rename and generic parsing is rather done
 
 ), with_generic_fields as (
 
-    {{ fdr_appuiscommuns.add_generic_fields('specific_parsed', fieldPrefix, fdr_namespace, src_priority) }}
+    {{ fdr_francedatareseau.add_generic_fields('specific_parsed', fieldPrefix, fdr_namespace, src_priority) }}
 
 ), specific_renamed as (
 

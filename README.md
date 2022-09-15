@@ -2,6 +2,12 @@
 
 Projet de traitement du cas d'usage FDR Bornes de recharge. En DBT.
 
+Tables ou vues de données produites (dans le schema eaupotable) :
+- *_src_*_parsed (vue) : union générique des différentes tables importées de chaque collectivité, avec conversion automatique des champs
+- *_src_*_translated (table) : matérialise en table, unifie _en_service et _abandonnees, corrige (0-padding des codes) et enrichit (des champs techniques : id unique global reproductible...)
+- *_std_* (vue) : simple raccourci vers la précédente
+- => *_std_*_labelled (vue) : l'enrichit des labels des codes
+
 ## TODO :
 
 - enrich this README from apcom's

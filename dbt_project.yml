@@ -21,13 +21,13 @@ vars:
   # TODO (level of) enablement of each source
   # TODO or / and setup/conf() macros
   # TODO move to global meta project :
-  schemas: ['appuiscommuns', 'sdirve', 'eaupotable', 'eclairage_public']
+  schemas: ['france-data-reseau', 'appuiscommuns', 'sdirve', 'eaupotable', 'eclairage_public']
   #base_schema: eaupotable
   use_case_prefix: eaupot
   owner_org: usage-eau-potable
   create_views_per_data_owner_relations: ['eaupot_std_canalisations_labelled', 'eaupot_std_reparations_labelled']
   # dbt_packages/fdr-... fails if soft link OR relative to parent ../ ; OR dans .yml # https://docs.fal.ai/Docs/fal-cli/local-imports
-  #fal-scripts-path: ../fdr_appuiscommuns/scripts
+  #fal-scripts-path: ../fdr-france-data-reseau/scripts
 
 model-paths: ["models"]
 analysis-paths: ["analyses"]
@@ -46,15 +46,12 @@ on-run-start:
     # so rather in a meta project OR OPERATION AS ADMIN
     #- '{{create_role_schema("appuiscommuns_test")}}'
     ##- '{% if not target.name %}{{create_views()}}{% endif %}'
-    - '{{ fdr_appuiscommuns.create_udfs() }}'
+    - '{{ fdr_francedatareseau.create_udfs() }}'
 
 on-run-end:
-  - '{% if not target.name %}{{ fdr_appuiscommuns.create_views_per_data_owner() }}{% endif %}'
+  - '{% if not target.name %}{{ fdr_francedatareseau.create_views_per_data_owner() }}{% endif %}'
 
 seeds:
-  # TODO temp, rm :
-  fdr_appuiscommuns:
-    +enabled: false
   fdr_francedatareseau:
     +enabled: false
   fdr_eaupotable:
@@ -70,9 +67,6 @@ seeds:
 models:
   # enable incremental schema update : TODO for now KO because doesn't quote field https://github.com/dbt-labs/dbt-core/issues/4423
   #+on_schema_change: "sync_all_columns"
-  # TODO temp, rm :
-  fdr_appuiscommuns:
-    +enabled: false
   fdr_francedatareseau:
     +enabled: false
   #fdr_osmgeodatamine_powersupports:
@@ -90,7 +84,5 @@ models:
       #materialized: table not needed (?)
 
 tests:
-  fdr_appuiscommuns:
-    +enabled: false
   fdr_francedatareseau:
     +enabled: false

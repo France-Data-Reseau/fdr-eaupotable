@@ -9,5 +9,5 @@ packages:
   # own :
   #- git: "https://github.com/france-data-reseau/fdr_appuiscommuns.git"
   #  revision: 0.1.21
-  - local: ../fdr_appuiscommuns
+  #- local: ../fdr_appuiscommuns
   - local: ../fdr-france-data-reseau

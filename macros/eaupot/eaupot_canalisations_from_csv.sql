@@ -37,22 +37,22 @@ select
         "idCanalisation"::text as "{{ fieldPrefix }}idCanalisation", -- 50337, 1645f993-f749-4e6f-acd8-46045ea408bf ; ID_2725 ; TODO Q uuid ? ; source own id
         ST_GeomFROMText("geometrie", 2154) as "geometrie", -- geometrie as "geometrie", -- Line, required
         materiau::text as "{{ fieldPrefix }}materiau", -- 18, 11, FG ; Fonte grise (LABEL !), required ; TODO PAS liste ouverte comme le suggère "code" plutôt que "ENUM"
-        {{ fdr_appuiscommuns.to_numeric_or_null('diametreNominal', source_relation, source_alias) }}::numeric as "{{ fieldPrefix }}diametreNominal", -- TODO int (selon que pour test ou translate ?) ; 200, int
-        {{ fdr_appuiscommuns.to_date_or_null('datePose', source_relation, ['YYYY-MM-DD'], source_alias) }}::date as "{{ fieldPrefix }}datePose", -- 2021-05-25 ; AAAA-mm-jj
+        {{ fdr_francedatareseau.to_numeric_or_null('diametreNominal', source_relation, source_alias) }}::numeric as "{{ fieldPrefix }}diametreNominal", -- TODO int (selon que pour test ou translate ?) ; 200, int
+        {{ fdr_francedatareseau.to_date_or_null('datePose', source_relation, ['YYYY-MM-DD'], source_alias) }}::date as "{{ fieldPrefix }}datePose", -- 2021-05-25 ; AAAA-mm-jj
         "maitreOuvrage"::text as "{{ fieldPrefix }}maitreOuvrage", -- 74176, MMM ; required
         exploitant::text as "{{ fieldPrefix }}exploitant", -- GRAND ANNECY, NULL ; required
-        {{ fdr_appuiscommuns.to_boolean_or_null('enService', source_relation, source_alias) }} as "{{ fieldPrefix }}enService", -- bool or 1 int4 ; required
-        {{ fdr_appuiscommuns.to_boolean_or_null('branchement', source_relation, source_alias) }} as "{{ fieldPrefix }}branchement", -- bool or 1 int4 ; required
+        {{ fdr_francedatareseau.to_boolean_or_null('enService', source_relation, source_alias) }} as "{{ fieldPrefix }}enService", -- bool or 1 int4 ; required
+        {{ fdr_francedatareseau.to_boolean_or_null('branchement', source_relation, source_alias) }} as "{{ fieldPrefix }}branchement", -- bool or 1 int4 ; required
         "modeCirculation"::text as "{{ fieldPrefix }}modeCirculation", -- Gravitaire, required
-        {{ fdr_appuiscommuns.to_date_or_null('anPoseInf', source_relation, ['YYYY-MM-DD'], source_alias) }}::date as "{{ fieldPrefix }}anPoseInf", -- 1925-01-01 ; AAAA-mm-jj
-        {{ fdr_appuiscommuns.to_date_or_null('anPoseSup', source_relation, ['YYYY-MM-DD'], source_alias) }}::date as "{{ fieldPrefix }}anPoseSup", -- 1936-01-01 ; AAAA-mm-jj
-        {{ fdr_appuiscommuns.to_numeric_or_null('longueur', source_relation, source_alias) }}::numeric as "{{ fieldPrefix }}longueur", -- 31.47597935 ; 15.29, float
+        {{ fdr_francedatareseau.to_date_or_null('anPoseInf', source_relation, ['YYYY-MM-DD'], source_alias) }}::date as "{{ fieldPrefix }}anPoseInf", -- 1925-01-01 ; AAAA-mm-jj
+        {{ fdr_francedatareseau.to_date_or_null('anPoseSup', source_relation, ['YYYY-MM-DD'], source_alias) }}::date as "{{ fieldPrefix }}anPoseSup", -- 1936-01-01 ; AAAA-mm-jj
+        {{ fdr_francedatareseau.to_numeric_or_null('longueur', source_relation, source_alias) }}::numeric as "{{ fieldPrefix }}longueur", -- 31.47597935 ; 15.29, float
         "metaRAEPA" as "{{ fieldPrefix }}metaRAEPA", -- TODO pas fournies, format ? (jons, ou plutôt en champs ?)
         "qualiteGeolocalisation"::text as "{{ fieldPrefix }}qualiteGeolocalisation", -- Classe A, required
         "sourceMateriau"::text as "{{ fieldPrefix }}sourceMateriau", -- Mémoire, required
         "sourceDiametreNominal"::text as "{{ fieldPrefix }}sourceDiametreNominal", -- Récolement, required
         "sourceDatePose"::text as "{{ fieldPrefix }}sourceDatePose", -- Récolement, required
-        {{ fdr_appuiscommuns.to_date_or_null('dateAbandon', source_relation, ['YYYY-MM-DD'], source_alias) }}::date as "{{ fieldPrefix }}dateAbandon", -- 2021-05-30 ; AAAA-mm-jj, required SI ABANDONNEE
+        {{ fdr_francedatareseau.to_date_or_null('dateAbandon', source_relation, ['YYYY-MM-DD'], source_alias) }}::date as "{{ fieldPrefix }}dateAbandon", -- 2021-05-30 ; AAAA-mm-jj, required SI ABANDONNEE
         "sourceDateAbandon"::text as "{{ fieldPrefix }}sourceDateAbandon" -- Récolement, required
 
     from {{ source_model }}

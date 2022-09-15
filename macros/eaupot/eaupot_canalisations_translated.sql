@@ -43,7 +43,7 @@ TODO :
 {% set type = 'eaupotable_canalisation' %} -- _2021 ? from this file ? prefix:typeName ?
 {% set fdr_namespace = 'canalisation.' + var('fdr_namespace') %} -- ?
 {% set typeName = 'Canalisation' %}
-{% set sourcePrefix = 'osmposup' %} -- ?
+{% set sourcePrefix = 'eaupot' %} -- ?
 {% set prefix = var('use_case_prefix') + 'can' %} -- ?
 {% set sourceFieldPrefix = sourcePrefix + ':' %}
 {% set sourceFieldPrefix = sourcePrefix + '_' %}
@@ -95,7 +95,7 @@ rename and generic parsing is rather done
 
 ), with_generic_fields as (
 
-    {{ fdr_appuiscommuns.add_generic_fields('specific_parsed', fieldPrefix, fdr_namespace, src_priority) }}
+    {{ fdr_francedatareseau.add_generic_fields('specific_parsed', fieldPrefix, fdr_namespace, src_priority) }}
 
 ), specific_renamed as (
 
