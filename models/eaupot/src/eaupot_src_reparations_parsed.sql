@@ -12,5 +12,4 @@
 {{ fdr_francedatareseau.fdr_source_union_from_name(FDR_SOURCE_NOM,
     has_dictionnaire_champs_valeurs,
     this,
-    translated_macro=eaupot_reparations_translated,
     def_model=ref('eaupot_def_reparations_definition')) }}
