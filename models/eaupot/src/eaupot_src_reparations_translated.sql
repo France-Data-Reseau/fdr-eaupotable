@@ -1,6 +1,9 @@
 {#
 Fully translated, indexed
 en service ET abandonnées (données et champs)
+
+?
+    indexes=[{'columns': ['geometrie'], 'type': 'gist'},]
 #}
 
 

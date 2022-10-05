@@ -11,17 +11,8 @@ vars:
   fdr_namespace: 'eaupotable.francedatareseau.fr' # access with var(), NOT namespace else jinja's
   enableOverTime: false # sinon problèmes, voir dans les exploitation/*_ot.sql
   enableProfiling: false
-  test_extract_suffixes:
-    #- _extract_stg
-    #- _extract
-    - _example_stg
-    - _example
-    #- _definition_stg
-    #- _definition
   # TODO (level of) enablement of each source
   # TODO or / and setup/conf() macros
-  # TODO move to global meta project :
-  schemas: ['france-data-reseau', 'appuiscommuns', 'sdirve', 'eaupotable', 'eclairage_public']
   #base_schema: eaupotable
   use_case_prefix: eaupot
   owner_org: usage-eau-potable

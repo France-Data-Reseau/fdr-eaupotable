@@ -1,6 +1,9 @@
 {#
 Fully translated, indexed
 en service ET abandonnées (données et champs)
+
+?
+    indexes=[{'columns': ['geometrie'], 'type': 'gist'},]
 #}
 
 
@@ -22,7 +25,7 @@ with canalisations_en_service as (
   {{ eaupot_canalisations_translated(ref('eaupot_src_canalisations_abandonnees_parsed')) }}
 )
 select * from canalisations_en_service
-UNION
+UNION ALL -- without ALL removes duplicates lines according to the columns of the first column statement !
 select * from canalisations_abandonnees
 
 {# MISSING eaupot_canalisations_en_service_translated()
