@@ -2,8 +2,6 @@
 Fully translated, indexed
 en service ET abandonnées (données et champs)
 
-?
-    indexes=[{'columns': ['geometrie'], 'type': 'gist'},]
 #}
 
 
@@ -12,14 +10,21 @@ en service ET abandonnées (données et champs)
 
 {{
   config(
-    materialized="table",
-    indexes=[{'columns': ['"' + fieldPrefix + 'idReparation"']},
-      {'columns': order_by_fields},
-      ]
+    materialized="view",
   )
 }}
 
 with translated as (
   {{ eaupot_reparations_translated(ref('eaupot_src_reparations_parsed')) }}
-)
+), translated_dict as (
+  {{ eaupot_reparations_translated(ref('eaupot_src_reparations_dict_parsed')) }}
+
+), unioned as (
 select * from translated
+UNION ALL -- without ALL removes duplicates lines according to the columns of the first column statement !
+select * from translated_dict
+
+), labelled as (
+  {{ eaupot_reparations_labelled('unioned') }}
+)
+select * from labelled

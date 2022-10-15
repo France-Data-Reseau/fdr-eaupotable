@@ -2,29 +2,44 @@
 
 Projet de traitement du cas d'usage FDR Bornes de recharge. En DBT.
 
-Tables ou vues de données produites (dans le schema eaupotable) :
-- *_src_*_parsed (vue) : union générique des différentes tables importées de chaque collectivité, avec conversion automatique des champs
-- *_src_*_translated (table) : matérialise en table, unifie _en_service et _abandonnees, corrige (0-padding des codes) et enrichit (des champs techniques : id unique global reproductible...)
-- *_std_* (vue) : simple raccourci vers la précédente
-- => *_std_*_labelled (vue) : l'enrichit des labels des codes
+See Install, build & run and FAQ / Gotchas in fdr-france-data-reseau.
 
+Regular (incremental) run :
+```bash
+dbt run --target prod/test --select eaupot.src tag:incremental
+```
+
+## Provides
+
+Tables ou vues de données produites (dans le schema eaupotable) :
+- *_src_*_parsed : union générique des différentes tables importées de chaque collectivité, avec conversion automatique des champs
+- *_src_*_translated : unifie _en_service et _abandonnees, corrige (0-padding des codes) et enrichit
+(des labels des codes, des champs techniques : id unique global reproductible...)
+- => *_std_*(_unified), (incrémental donc table) : matérialise en incrémental (table) la précédente, avec index. NB. labelled est un raccourci vers ceux-ci pour
+rétrocompatibilité.
+- *_std_*_linked (incrémental donc table) : résultat du rapprochement géographique avec les communes ou pour les
+réparations avec les canalisations à moins de 5m
+- => *_std_*_enriched : les enrichit des communes (avec leur population), et pour les reparations de leurs canalisations
+connnues (eaupotrep_supportIncident) ou sinon de la plus proche à moins de 5m (18s pour 50k reparations avec
+350k canalisations)
+
+
+## Problèmes de données :
+
+Duplicates Grand Annecy
+
+  
 ## TODO :
 
-- enrich this README from apcom's
-- clean dbt_project.yml
 - canalisations_en_service :
-  - clean from_csv (mapping), retest apcom, move it (& fdr_source_union, fal scripts/ ...) out of apcom project
-  - schema test VOIRE sur _parsed de CHAQUE data_owner_id/FDR_SIREN, non regression test, profiles.yml accordingly
-  - alternative dictionnaire des données
+  - schema test VOIRE sur _parsed de CHAQUE data_owner_id/FDR_SIREN voire avec vue pour chacun, voir déjà
+eaupot_src_canalisations_en_service_parsed_errors
+  - non regression test
   - publish, without fieldPrefix (or only add it after "echange" format ?)
-- reparations :
-  - example / definition, _parsed/translated,
-  - LATER rapprochement géographique
-- OK canalisations_abandonnees : mutualiser avec canalisations_en_service ?
-  - TODO Q avec ou sans "s" ?
-  - TODO Q csv : wkt (car lambert) plutôt que geojson ? mais alors pas de ckan preview sauf si 2e fichier ?
 
-scenario :
+
+## OBSOLETE scenario :
+
 - publish :
   - OK dans org eaupotable et non apcom
   - OK pb nginx ! https://ckan.francedatareseau.fr/api/action/datastore_create', 504, '<html>\r\n<head><title>504 Gateway Time-out
@@ -39,11 +54,6 @@ scenario :
   - ou / et reprendre meta en rajoutant data counts
 - fin scenario
 
-- env vars pour externaliser secret ou variables partagées entre dbt et fal / python (et docker)
 - déplacer create view per data owner dans fal (flow) after OU / ET more --publish/deploy
 - partager - fal scripts : fal-scripts-path: dbt_packages/dbt_engine OU dans .yml # https://docs.fal.ai/Docs/fal-cli/local-imports
 - partager : fdr-engine(-dbt)/import/ckan ??
-
-## Problèmes de données :
-
-voir _canalisations_translated() (et _reparations_translated())

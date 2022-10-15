@@ -5,7 +5,4 @@
   )
 }}
 
-with labelled as (
-  {{ eaupot_reparations_labelled(ref('eaupot_src_reparations_translated')) }}
-)
-select * from labelled
+select * from {{ ref('eaupot_std_reparations_unified') }}

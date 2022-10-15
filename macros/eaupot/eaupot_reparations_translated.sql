@@ -73,7 +73,7 @@ rename and generic parsing is rather done
     select
         *,
 
-        "{{ fieldPrefix }}id" as "{{ fieldPrefix }}idReparation"
+        "{{ fieldPrefix }}src_id" as "{{ fieldPrefix }}idReparation" -- and NOT _id else not consistent between source and echange formats
         --ST_GeomFROMText('POINT(' || cast("X" as text) || ' ' || cast("Y" as text) || ')', 4326) as geometry, -- OU prefix ? forme ?? ou /et "Geom" ? TODO LATER s'en servir pour réconcilier si < 5m
 
     from with_generic_fields

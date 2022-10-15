@@ -5,7 +5,4 @@
   )
 }}
 
-with labelled as (
-  {{ eaupot_canalisations_labelled(ref('eaupot_src_canalisations_translated')) }}
-)
-select * from labelled
+select * from {{ ref('eaupot_std_canalisations_unified') }}
