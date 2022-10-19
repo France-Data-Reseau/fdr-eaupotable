@@ -29,16 +29,18 @@ with unioned as (
     column_override={"geometrie": "geometry"})
 }}
 
+), labelled as ( -- not before else hard to filter out non-def fields
+  {{ eaupot_canalisations_labelled('unioned') }}
 )
 
 select *
 -- adding stored geo field used to compute distances in dedupe :
 --, ST_Transform(geometry, 2154) as geometry_2154
 --, ST_X(geometry) as x, ST_Y(geometry) as y
-from unioned
+from labelled
 -- same order by as for _deduped : not really too long but index on it is enough
 ----order by "{{ order_by_fields | join('" asc, "') }}" asc -- NOO too long, index on it is enough
 
 {% if is_incremental() %}
-  where last_changed > (select coalesce(max(last_changed), '1970-01-01T00:00:00') from {{ this }})
+  where last_changed > (select coalesce(max(last_changed), to_timestamp('1970-01-01T00:00:00', 'YYYY-MM-DDTHH24:MI:SS')) from {{ this }})
 {% endif %}

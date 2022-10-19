@@ -24,7 +24,5 @@ select * from translated
 UNION ALL -- without ALL removes duplicates lines according to the columns of the first column statement !
 select * from translated_dict
 
-), labelled as (
-  {{ eaupot_reparations_labelled('unioned') }}
 )
-select * from labelled
+select * from unioned

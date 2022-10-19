@@ -18,6 +18,7 @@ indexes : if dedup
   )
 }}
 
+
 with unioned as (
 
 {{ dbt_utils.union_relations(relations=[
@@ -25,9 +26,12 @@ with unioned as (
       ref('eaupot_src_reparations_translated')],
     include=(adapter.get_columns_in_relation(ref('eaupot_def_reparations_definition')) | map(attribute='name') | list)
         + fdr_francedatareseau.list_generic_fields(fieldPrefix) + fdr_francedatareseau.list_import_fields(),
-    source_column_name='eaupotcan_src_relation',
+    source_column_name='eaupotrep_src_relation',
     column_override={"geometrie": "geometry"})
 }}
+
+), labelled as ( -- not before else hard to filter out non-def fields
+  {{ eaupot_reparations_labelled('unioned') }}
 
 )
 
@@ -35,10 +39,10 @@ select *
 -- adding stored geo field used to compute distances in dedupe :
 --, ST_Transform(geometry, 2154) as geometry_2154
 --, ST_X(geometry) as x, ST_Y(geometry) as y
-from unioned
+from labelled
 -- same order by as for _deduped : not really too long but index on it is enough
 ----order by "{{ order_by_fields | join('" asc, "') }}" asc -- NOO too long, index on it is enough
 
 {% if is_incremental() %}
-  where last_changed > (select coalesce(max(last_changed), '1970-01-01T00:00:00') from {{ this }})
+  where last_changed > (select coalesce(max(last_changed), to_timestamp('1970-01-01T00:00:00', 'YYYY-MM-DDTHH24:MI:SS')) from {{ this }})
 {% endif %}

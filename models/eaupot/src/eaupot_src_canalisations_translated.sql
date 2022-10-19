@@ -36,10 +36,8 @@ select * from canalisations_abandonnees_dict
 ), geometry_deduped as (
     {{ fdr_francedatareseau.dedupe('unioned', id_fields=['"geometrie"']) }}
 #}
-), labelled as (
-  {{ eaupot_canalisations_labelled('unioned') }}
 )
-select * from labelled
+select * from unioned
 
 {# MISSING eaupot_canalisations_en_service_translated()
 { dbt_utils.union_relations(relations=[

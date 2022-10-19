@@ -19,7 +19,9 @@ Tables ou vues de données produites (dans le schema eaupotable) :
 rétrocompatibilité.
 - *_std_*_linked (incrémental donc table) : résultat du rapprochement géographique avec les communes ou pour les
 réparations avec les canalisations à moins de 5m
-- => *_std_*_enriched : les enrichit des communes (avec leur population), et pour les reparations de leurs canalisations
+- => *_std_*_enriched : les enrichit
+  - des communes (avec leur population),
+  - et pour les reparations de leurs canalisations
 connnues (eaupotrep_supportIncident) ou sinon de la plus proche à moins de 5m (18s pour 50k reparations avec
 350k canalisations)
 
